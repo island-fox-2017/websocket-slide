@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section><img src="img/8257-internazionale-milano-inter-milan-football-soccer.jpg" alt=""></section>
+				<section><img src="img/f-c-internazionale-milano-nerazzurri-snakes-1714589-1920x1080.jpg" alt=""></section>
+				<section>
+					<img src="img/f-c-internazionale-milano-soccer-2516043-1920x1080.jpg" alt="">
+				</section>
+			</div>
+		</div>
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
+		<script>
+		var config = {
+		    apiKey: "AIzaSyBK5-G6Q61IaCA5Yc6WeL39kgpL0wAIUFo",
+		    authDomain: "slider-9c25d.firebaseapp.com",
+		    databaseURL: "https://slider-9c25d.firebaseio.com",
+		    projectId: "slider-9c25d",
+		    storageBucket: "slider-9c25d.appspot.com",
+		    messagingSenderId: "335582984567"
+		  };
+			
+		  firebase.initializeApp(config);
+		  
+		  
+		  var database = firebase.database();
+		  
+		  function writeDataSlider(data){
+		    database.ref('test/').set({
+		      dataSlide: data
+		    });
+		    console.log(data);
+		  }
+		  
+		  var starCountRef = firebase.database().ref('test/dataSlide/');
+		  starCountRef.on('value', function(snapshot){
+		    console.log(snapshot.val());
+		    var dataSnap = snapshot.val();
+		    window.location.hash = dataSnap
+		  })
+		  
+		  $(window).on('hashchange',  () =>  {
+		    writeDataSlider(window.location.hash)
+		  })
+		</script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				history: true
+			});
+		</script>
+	</body>
+</html>
